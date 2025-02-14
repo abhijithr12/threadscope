@@ -1,0 +1,150 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>AI Malware Detection Interface</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #121212;
+            color: #ffffff;
+            text-align: center;
+            padding: 20px;
+        }
+        .header {
+            background-color: #0d47a1; /* Blue */
+            padding: 15px;
+            text-align: center;
+        }
+        h1 {
+            color: #eaedf0;
+            margin-bottom: 20px;
+        }
+
+        .card {
+            background-color: #1c1c1c;
+            padding: 20px;
+            border-radius: 15px;
+            margin-bottom: 20px;
+        }
+
+        input[type="text"], input[type="file"] {
+            width: 60%;
+            padding: 10px;
+            margin: 10px 0;
+            border-radius: 25px;
+            border: none;
+            font-size: 16px;
+            outline: none;
+        }
+
+        button {
+            padding: 10px 20px;
+            border-radius: 25px;
+            background-color: #0d47a1;
+            border: none;
+            color: white;
+            font-size: 16px;
+            cursor: pointer;
+            margin-top: 10px;
+        }
+
+        button:hover {
+            background-color: #1565c0;
+        }
+
+        .result {
+            font-size: 18px;
+            margin-top: 20px;
+        }
+
+        .alert {
+            color: #e53935;
+        }
+
+        .safe {
+            color: #4caf50;
+        }
+    </style>
+</head>
+<body>
+<div class="header">
+    <h1>THREADSCOPE</h1>
+    <h3> AI Malware Detection</h3>
+</div>   
+
+    <!-- Display total infectious sites visited -->
+    <div class="card">
+        <h2>Infectious Sites Tracker</h2>
+        <p>You have visited <span id="infectious-count">0</span> infectious sites.</p>
+    </div>
+
+    <!-- URL input for malware detection -->
+    <div class="card">
+        <h2>Check for Malware</h2>
+        <input type="text" id="url-input" placeholder="Enter URL to check...">
+        <button onclick="checkInfectious()">Check URL</button>
+        <div id="result" class="result"></div>
+    </div>
+
+    <!-- AI features for malware resistance -->
+    
+
+    <div class="card">
+        <h2>Upload a Suspicious File for Analysis</h2>
+        <input type="file" id="file-upload">
+        <button onclick="analyzeFile()">Analyze File</button>
+        <div id="file-result" class="result"></div>
+    </div>
+
+    <script>
+        let infectiousCount = 0;  // Tracks how many infectious sites the user has visited
+
+        // Simulated function to check if a URL is infectious
+        function checkInfectious() {
+            const url = document.getElementById('url-input').value;
+            const resultDiv = document.getElementById('result');
+            const infectiousSites = ['malware.com', 'phishingsite.com', 'dangerous.com']; // Example list
+
+            // Simulate AI check
+            if (infectiousSites.includes(url.toLowerCase())) {
+                infectiousCount++;
+                document.getElementById('infectious-count').innerText = infectiousCount;
+                resultDiv.innerHTML = `<span class="alert">The URL '${url}' is infectious! Proceed with caution!</span>`;
+            } else {
+                resultDiv.innerHTML = `<span class="safe">The URL '${url}' is safe to visit.</span>`;
+            }
+        }
+
+        // Simulated function to analyze uploaded file
+        function analyzeFile() {
+            const fileInput = document.getElementById('file-upload');
+            const fileResultDiv = document.getElementById('file-result');
+
+            // Check if any file is uploaded
+            if (!fileInput.files.length) {
+                fileResultDiv.innerHTML = `<span class="alert">No file uploaded for analysis!</span>`;
+                return;
+            }
+
+            const fileName = fileInput.files[0].name;
+            // Simulate AI-based file analysis (this can be expanded with actual file scanning logic)
+            const dangerousFiles = ['virus.exe', 'malware.docx'];  // Example file names
+
+            if (dangerousFiles.includes(fileName.toLowerCase())) {
+                fileResultDiv.innerHTML = `<span class="alert">The file '${fileName}' contains malware! Do not open!</span>`;
+            } else {
+                fileResultDiv.innerHTML = `<span class="safe">The file '${fileName}' appears to be safe.</span>`;
+            }
+        }
+    </script>
+
+</body>
+</html>
